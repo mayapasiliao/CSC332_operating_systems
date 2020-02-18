@@ -3,8 +3,8 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 #include <string.h>
-#include <errno.h>
 #include <unistd.h>
+
 int main(int argc, char *argv[]) {
   int fd;
 
@@ -13,7 +13,7 @@ int main(int argc, char *argv[]) {
     return 1;
   }
 
-  errno = 0;
+  // If file exists, open in read only mode. If doesn't exist, create file
   fd = open(argv[1], O_RDONLY|O_CREAT);
   if(fd < 0) {
     perror('open');
@@ -23,6 +23,7 @@ int main(int argc, char *argv[]) {
     printf('\n Open() Successful\n');
   }
 
+  // Close file
   int fd2 = close(fd);
   if(fd2 < 0) {
     printf('\n close() failed\n');
