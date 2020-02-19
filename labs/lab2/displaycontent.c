@@ -36,7 +36,7 @@ int main(int argc, char *argv[]) {
     printf("close() failed\n");
   }
 
-  // Free allocated dynamically allocated memory
+  // Free dynamically allocated memory
   free(buf);
 
   return 0;
