@@ -25,6 +25,7 @@ int main(int argc, char *argv[]) {
   if(sz < 0) {
     printf("read() failed");
     perror("read");
+    return -1;
   }
   
   write(1, buf, sz);
@@ -34,6 +35,7 @@ int main(int argc, char *argv[]) {
   if(fd2 < 0) {
     perror("close");
     printf("close() failed\n");
+    return -1;
   }
 
   // Free dynamically allocated memory
