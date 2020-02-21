@@ -11,7 +11,6 @@
 int main(int argc, char *argv[]) {
   int fd_open, fd_close, fd_create, fd_read;
   size_t bytes;
-  char buff[100];
   char* buf = malloc(10 * sizeof(char)); // buf changes size according to size of txt file
   char* filename = "destination.txt";
 
