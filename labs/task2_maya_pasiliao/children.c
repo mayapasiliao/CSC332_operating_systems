@@ -1,6 +1,3 @@
-// TODO: Error checks
-// Office hours for lab prof Wednesdays, 1 to 3 in room opposite lab room
-
 #include <unistd.h>
 #include <sys/types.h>
 #include <stdio.h>
