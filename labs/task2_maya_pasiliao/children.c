@@ -23,7 +23,7 @@ int main(int argc, char *argv[]) {
     printf("I am child one, my pid is: %d\n", child1_pid);
   }
 
-  else {
+  else { // This else returns control back to parent process
     // ----CHILD2 CODE----
     child2 = fork(); // Creating 2nd sibling
     if(child2 < 0) {
