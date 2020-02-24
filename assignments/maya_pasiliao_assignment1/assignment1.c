@@ -60,11 +60,13 @@ int main(int argc, char *argv[]) {
       }
 
       // Parent process waiting for both children to execute
-      while(wait(&status) > 0) {
-        if(wait(NULL) < 0) {
+      int wait_return = wait(&status);
+      while(wait_return > 0) {
+        if(wait_return < 0) {
           perror("wait");
           return -1;
         }
+        wait_return = wait(&status);
       }
 
       return 0;
