@@ -8,7 +8,7 @@ int main(int argc, char *argv[]) {
   if (child == 0) {
     char* args[]={"ls", "-l", "-a", NULL};
     printf("child PID = %d\n", getpid());
-    execvp("/bin/ls", "ls", "-l", "-a", &argv[0]);
+    execvp(args[0], args);
   }
 
   wait(NULL);
