@@ -1,0 +1,59 @@
+I have included the c file I ran to show outputs in case I
+misinterpreted where the print statements were supposed to go, at
+least it will be clear where my logic is coming from. I have also
+labeled each print statement to make it easier to reference.
+
+Parent and child processes run simultaneously. There is no wait
+statement in any of the processes that become a parent, meaning child
+does not have to terminate before parent. This causes the print
+statements to print in different orders as one process finishes before
+another.
+
+Print statement 1 prints a = 35, b = 25, pid = 16294. 1 is in Process Q,
+child of parent P because it's in the if(fq==0) block. It
+doesn't contain an exec function call, therefore is still a copy of
+its parent and has Parent P's variables, which is why a=a+b=35.
+
+Print statement 2 is in Process R, which is a child of Process Q and
+grandchild of Process P. It prints a = 35, b = 45, pid = 16294. Again,
+there is no exec function called so Process R is a copy of Process Q.
+However, the print statement is executing in the parent process
+(Process Q) because it is in the blockif(fr!=0). Although Process R
+is a copy of Process Q, the print statement is using Process Q's
+variables.
+
+Print statement 3 is in Process R. No exec function so it is a copy of
+Process Q. It prints a = 905, b = 25, pid = 16295.a is result of
+35*25+30. This means that print statement 3 is using Process Q's b
+variable, which makes sense because Process R was forked
+before b was modified in print statement 2 and is still a copy of
+Process Q before modification.
+
+Print statement 4 is back in Process P. It prints a = 10, b = 30,
+pid = 16293. The print statement is using the values originally defined
+in Process P because all changes made to the variables only exist in
+their specific forks.
+
+
+//parent P
+int main(int argc, char *argv[]) {
+  int a=10, b=25, fq=0, fr=0;
+  fq=fork(); // fork a child - call it Process Q
+  if(fq==0) { // Child successfully forked
+    a=a+b; // print values of a, b, and process_id
+    printf("1 a = %d, b = %d, pid = %d\n", a, b, getpid()); // 1
+    fr=fork(); // fork another child - call it Process R
+    if(fr!=0) {
+      b=b+20; // print values of a, b, and process_id
+      printf("2 a = %d, b = %d, pid = %d\n", a, b, getpid()); // 2
+    }
+    else {
+      a=(a*b)+30; // print values of a, b, and process_id
+      printf("3 a = %d, b = %d, pid = %d\n", a, b, getpid()); // 3
+    }
+  }
+  else {
+    b=a+b-5; // print values of a, b, and process_id
+    printf("4 a = %d, b = %d, pid = %d\n", a, b, getpid()); // 4
+  }
+}
