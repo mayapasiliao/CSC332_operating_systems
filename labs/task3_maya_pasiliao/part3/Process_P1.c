@@ -7,10 +7,10 @@ int main(int argc, char *argv[]) {
     perror("creat1");
   }
 
-    int fd2 = creat("destination2.txt", S_IRWXU);
-    if(fd2 < 0) {
-      perror("creat2");
-    }
+  int fd2 = creat("destination2.txt", S_IRWXU);
+  if(fd2 < 0) {
+    perror("creat2");
+  }
 
   return 0;
 }
