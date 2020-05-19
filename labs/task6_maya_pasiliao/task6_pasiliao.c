@@ -1,8 +1,9 @@
 /*
-    Explanation: The agent distributing items is represented by the random number function. When the number is generated, this is
+    Explanation: The agent distributing items is represented by the random number function. When a number is generated, this is
     analogous to the agent placing two of the items that smoker(number generated) doesn't have. The agent's mutex then gets locked
-    and the chosen smoker executes. When the smoker finishes, the agent mutex is unlocked and chooses another smoker. I have chosen
-    20 iteration to illustrate what the program does.
+    and the chosen smoker executes. When the smoker finishes, the agent mutex is unlocked and chooses another smoker. This ensures
+    that no smokers are smoking at the same time. When a smoker is chosen, their mutex gets unlocked. After they "smoke", their mutex
+    gets locked again. I have chosen 20 iteration to illustrate what the program does.
 */
 
 #include <pthread.h>
@@ -28,8 +29,14 @@ int main(int argc, char* arvg[]) {
 
 	// Create mutex locks
     pthread_mutex_init(&smoker0_lock, 0);
+    pthread_mutex_lock(&smoker0_lock);
+
     pthread_mutex_init(&smoker1_lock, 0);
+    pthread_mutex_lock(&smoker1_lock);
+
     pthread_mutex_init(&smoker2_lock, 0);
+    pthread_mutex_lock(&smoker2_lock);
+
 
 	// agent distributes items using random numbers
 	for(int i = 0; i < 20; i++) {
